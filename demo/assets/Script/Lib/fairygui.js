@@ -13897,11 +13897,17 @@ window.__extends = (this && this.__extends) || (function () {
         Transition.prototype.callHook = function (item, tweenEnd) {
             if (tweenEnd) {
                 if (item.tweenConfig && item.tweenConfig.endHook != null)
-                    item.tweenConfig.endHook(item.label);
+                    item.tweenConfig.endHook(item);
+                if (item.label) {
+                    console.log("[Transition] event: " + item.label + ", value: " + JSON.stringify(item.value));
+                }
             }
             else {
                 if (item.time >= this._startTime && item.hook != null)
-                    item.hook(item.label);
+                    item.hook(item);
+                if (item.label) {
+                    console.log("[Transition] event: " + item.label + ", value: " + JSON.stringify(item.value));
+                }
             }
         };
         Transition.prototype.checkAllComplete = function () {
@@ -14211,6 +14217,7 @@ window.__extends = (this && this.__extends) || (function () {
         }
         return Item;
     }());
+    fgui.Item = Item;
     var TweenConfig = (function () {
         function TweenConfig() {
             this.easeType = fgui.EaseType.QuadOut;

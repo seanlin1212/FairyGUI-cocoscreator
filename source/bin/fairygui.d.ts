@@ -1797,7 +1797,7 @@ declare namespace fgui {
     }
 }
 declare namespace fgui {
-    class Transition {
+    export class Transition {
         name: string;
         private _owner;
         private _ownerBaseX;
@@ -1829,7 +1829,7 @@ declare namespace fgui {
         dispose(): void;
         get playing(): boolean;
         setValue(label: string, ...args: any[]): void;
-        setHook(label: string, callback: (label?: string) => void): void;
+        setHook(label: string, callback: (item?: Item) => void): void;
         clearHooks(): void;
         setTarget(label: string, newTarget: GObject): void;
         setDuration(label: string, value: number): void;
@@ -1854,6 +1854,79 @@ declare namespace fgui {
         setup(buffer: ByteBuffer): void;
         private decodeValue;
     }
+    enum ActionType {
+        XY = 0,
+        Size = 1,
+        Scale = 2,
+        Pivot = 3,
+        Alpha = 4,
+        Rotation = 5,
+        Color = 6,
+        Animation = 7,
+        Visible = 8,
+        Sound = 9,
+        Transition = 10,
+        Shake = 11,
+        ColorFilter = 12,
+        Skew = 13,
+        Text = 14,
+        Icon = 15,
+        Unknown = 16
+    }
+    export class Item {
+        time: number;
+        targetId: string;
+        type: ActionType;
+        tweenConfig?: TweenConfig;
+        label?: string;
+        value: TValue;
+        hook?: Function;
+        tweener?: GTweener;
+        target: GObject;
+        displayLockToken: number;
+        constructor(type: number);
+    }
+    class TweenConfig {
+        duration: number;
+        easeType: number;
+        repeat: number;
+        yoyo?: boolean;
+        startValue: TValue;
+        endValue: TValue;
+        endLabel: string;
+        endHook?: Function;
+        path?: GPath;
+        constructor();
+    }
+    interface TValue {
+        visible?: boolean;
+        animationName?: string;
+        frame?: number;
+        playing?: boolean;
+        flag?: boolean;
+        sound?: string;
+        volume?: number;
+        audioClip?: cc.AudioClip;
+        transName?: string;
+        playTimes?: number;
+        trans?: Transition;
+        stopTime?: number;
+        amplitude?: number;
+        duration?: number;
+        offsetX?: number;
+        offsetY?: number;
+        lastOffsetX?: number;
+        lastOffsetY?: number;
+        text?: string;
+        f1?: number;
+        f2?: number;
+        f3?: number;
+        f4?: number;
+        b1?: boolean;
+        b2?: boolean;
+        b3?: boolean;
+    }
+    export {};
 }
 declare namespace fgui {
     class TranslationHelper {

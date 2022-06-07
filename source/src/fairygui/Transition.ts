@@ -327,7 +327,7 @@ namespace fgui {
             }
         }
 
-        public setHook(label: string, callback: (label?: string) => void): void {
+        public setHook(label: string, callback: (item?: Item) => void): void {
             var cnt: number = this._items.length;
             for (var i: number = 0; i < cnt; i++) {
                 var item: Item = this._items[i];
@@ -815,11 +815,19 @@ namespace fgui {
         private callHook(item: Item, tweenEnd: boolean): void {
             if (tweenEnd) {
                 if (item.tweenConfig && item.tweenConfig.endHook != null)
-                    item.tweenConfig.endHook(item.label);
+                    item.tweenConfig.endHook(item);
+                
+                if(item.label){
+                    console.log(`[Transition] event: ${item.label}, value: ${JSON.stringify(item.value)}`);
+                }
             }
             else {
                 if (item.time >= this._startTime && item.hook != null)
-                    item.hook(item.label);
+                    item.hook(item);
+                
+                if(item.label){
+                    console.log(`[Transition] event: ${item.label}, value: ${JSON.stringify(item.value)}`);
+                }
             }
         }
 
@@ -1177,7 +1185,7 @@ namespace fgui {
         Unknown = 16
     }
 
-    class Item {
+    export class Item {
         public time: number;
         public targetId: string;
         public type: ActionType;

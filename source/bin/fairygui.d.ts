@@ -237,7 +237,8 @@ declare namespace fgui {
         DeltaTime = 6,
         TimeScale = 7,
         FontSize = 8,
-        Selected = 9
+        Selected = 9,
+        Animation = 10
     }
 }
 declare namespace fgui {

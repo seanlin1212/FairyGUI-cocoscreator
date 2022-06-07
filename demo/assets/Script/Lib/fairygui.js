@@ -731,6 +731,7 @@ window.__extends = (this && this.__extends) || (function () {
         ObjectPropID[ObjectPropID["TimeScale"] = 7] = "TimeScale";
         ObjectPropID[ObjectPropID["FontSize"] = 8] = "FontSize";
         ObjectPropID[ObjectPropID["Selected"] = 9] = "Selected";
+        ObjectPropID[ObjectPropID["Animation"] = 10] = "Animation";
     })(ObjectPropID = fgui.ObjectPropID || (fgui.ObjectPropID = {}));
 })(fgui || (fgui = {}));
 
@@ -7907,7 +7908,8 @@ window.__extends = (this && this.__extends) || (function () {
             else
                 this._content.clearTrack(0);
             var skin = this._skinName || this._content.skeletonData.getRuntimeData().skins[0].name;
-            if (this._content["_skeleton"].skin != skin)
+            var curSkinName = this._content["_skeleton"].skin ? this._content["_skeleton"].skin.name : 'default';
+            if (curSkinName != skin)
                 this._content.setSkin(skin);
         };
         GLoader3D.prototype.onChangeDragonBones = function () {
@@ -8032,6 +8034,8 @@ window.__extends = (this && this.__extends) || (function () {
                     return this.frame;
                 case fgui.ObjectPropID.TimeScale:
                     return 1;
+                case fgui.ObjectPropID.Animation:
+                    return this.animationName;
                 default:
                     return _super.prototype.getProp.call(this, index);
             }
@@ -8050,6 +8054,9 @@ window.__extends = (this && this.__extends) || (function () {
                 case fgui.ObjectPropID.TimeScale:
                     break;
                 case fgui.ObjectPropID.DeltaTime:
+                    break;
+                case fgui.ObjectPropID.Animation:
+                    this.animationName = value;
                     break;
                 default:
                     _super.prototype.setProp.call(this, index, value);
@@ -13993,6 +14000,9 @@ window.__extends = (this && this.__extends) || (function () {
                     }
                     break;
                 case ActionType.Animation:
+                    if (value.animationName) {
+                        item.target.setProp(fgui.ObjectPropID.Animation, value.animationName);
+                    }
                     if (value.frame >= 0)
                         item.target.setProp(fgui.ObjectPropID.Frame, value.frame);
                     item.target.setProp(fgui.ObjectPropID.Playing, value.playing);
@@ -14138,6 +14148,7 @@ window.__extends = (this && this.__extends) || (function () {
                 case ActionType.Animation:
                     value.playing = buffer.readBool();
                     value.frame = buffer.readInt();
+                    value.animationName = buffer.readS();
                     break;
                 case ActionType.Visible:
                     value.visible = buffer.readBool();

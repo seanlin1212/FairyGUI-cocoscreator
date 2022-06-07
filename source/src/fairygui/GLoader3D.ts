@@ -450,6 +450,8 @@ namespace fgui {
                     return this.frame;
                 case ObjectPropID.TimeScale:
                     return 1;
+                case ObjectPropID.Animation:
+                    return this.animationName;
                 default:
                     return super.getProp(index);
             }
@@ -469,6 +471,9 @@ namespace fgui {
                 case ObjectPropID.TimeScale:
                     break;
                 case ObjectPropID.DeltaTime:
+                    break;
+                case ObjectPropID.Animation:
+                    this.animationName = value;
                     break;
                 default:
                     super.setProp(index, value);

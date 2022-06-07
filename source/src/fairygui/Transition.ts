@@ -932,6 +932,9 @@ namespace fgui {
                     break;
 
                 case ActionType.Animation:
+                    if (value.animationName){
+                        item.target.setProp(fgui.ObjectPropID.Animation, value.animationName);
+                    }
                     if (value.frame >= 0)
                         item.target.setProp(ObjectPropID.Frame, value.frame);
                     item.target.setProp(ObjectPropID.Playing, value.playing);
@@ -1113,6 +1116,7 @@ namespace fgui {
                 case ActionType.Animation:
                     value.playing = buffer.readBool();
                     value.frame = buffer.readInt();
+                    value.animationName = buffer.readS();
                     break;
 
                 case ActionType.Visible:
@@ -1214,6 +1218,7 @@ namespace fgui {
     interface TValue {
         visible?: boolean;
 
+        animationName?: string;
         frame?: number;
         playing?: boolean;
         flag?: boolean;

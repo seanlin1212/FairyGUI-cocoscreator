@@ -176,6 +176,7 @@ namespace fgui {
         DeltaTime,
         TimeScale,
         FontSize,
-        Selected
+        Selected,
+        Animation
     }
 } 

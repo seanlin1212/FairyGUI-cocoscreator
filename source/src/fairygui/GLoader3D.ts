@@ -299,7 +299,9 @@ namespace fgui {
                 this._content.clearTrack(0);
 
             let skin = this._skinName || this._content.skeletonData.getRuntimeData().skins[0].name;
-            if (this._content["_skeleton"].skin != skin)
+            // 取得當前的skin name;
+            let curSkinName = this._content["_skeleton"].skin ? this._content["_skeleton"].skin.name : 'default';
+            if (curSkinName != skin)
                 this._content.setSkin(skin);
         }
 

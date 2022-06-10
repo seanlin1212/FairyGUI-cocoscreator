@@ -72,7 +72,7 @@ export class UIPackage {
             }
         }
 
-        // GLoader3D檢查customData
+        // GTextField檢查customData，是否有prefab資訊，若有則載入對應的prefab
         for(let child of comp._children){
             if(child instanceof fgui.GTextField){
                 let customData = child.asCom.data;

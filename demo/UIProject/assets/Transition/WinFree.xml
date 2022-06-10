@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,640" pivot="0.5,0.5" anchor="true">
+  <controller name="fsm" exported="true" pages="2,None,0,Appear,1,Disappear" selected="1">
+    <action type="play_transition" fromPage="" toPage="2" transition="none" stopOnExit="true"/>
+    <action type="play_transition" fromPage="" toPage="0" transition="appear" stopOnExit="true"/>
+    <action type="play_transition" fromPage="0" toPage="1" transition="disappear" stopOnExit="true"/>
+  </controller>
+  <displayList>
+    <loader3D id="n1_hruo" name="spine" xy="560,336" pivot="0.384,0.5" anchor="true" size="1455,761" scale="0.5,0.5" url="ui://c0hnre6ohruo1q" autoSize="true" animation="Appear1" skin="" playing="false" loop="true">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </loader3D>
+    <text id="n24_d0so" name="particle" xy="560,336" pivot="0.5,0.5" anchor="true" size="401,54" customData="{&quot;prefab&quot;:&quot;Prefab/test&quot;}" font="font" fontSize="30" align="center" vAlign="middle" autoSize="none" strokeColor="#ffffff" text="{&quot;prefab&quot;:&quot;Prefab/test&quot;}">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </text>
+    <text id="n2_rnuu" name="text" xy="323,525" size="489,54" group="n10_rnuu" font="font" fontSize="40" color="#ffffff" text="touch anywhere to continue">
+      <relation target="n1_hruo" sidePair="center-center%,middle-middle%"/>
+    </text>
+    <component id="n9_rnuu" name="blockInput" src="rnuu1s" fileName="BlockInput.xml" xy="0,0" size="1136,640" group="n10_rnuu" alpha="0">
+      <relation target="" sidePair="width-width,height-height"/>
+      <Button controller="fsm" page="1"/>
+    </component>
+    <group id="n10_rnuu" name="blockInputGroup" xy="0,0" size="1136,640" advanced="true">
+      <relation target="" sidePair=""/>
+    </group>
+    <text id="n13_mfyg" name="changeState" xy="0,0" size="0,0" group="n22_mfyg" visible="false" fontSize="12" text=""/>
+    <group id="n22_mfyg" name="ctrl" xy="0,0" size="0,0"/>
+  </displayList>
+  <transition name="appear" options="4" frameRate="30">
+    <item time="0" type="Animation" target="n1_hruo" value="-,p,Appear1,-"/>
+    <item time="0" type="Visible" value="true"/>
+    <item time="0" type="Visible" target="n10_rnuu" value="false"/>
+    <item time="0" type="Visible" target="n1_hruo" value="true"/>
+    <item time="0" type="Visible" target="n24_d0so" value="false"/>
+    <item time="87" type="Animation" target="n1_hruo" value="-,p,Loop1,-"/>
+    <item time="87" type="Visible" target="n10_rnuu" value="true"/>
+    <item time="87" type="Visible" target="n24_d0so" value="true"/>
+  </transition>
+  <transition name="disappear" options="4" frameRate="30">
+    <item time="0" type="Animation" target="n1_hruo" value="0,p,Disappear1,-"/>
+    <item time="0" type="Sound" value="ui://9leh0eyfo4lt7w,100"/>
+    <item time="0" type="Visible" value="true"/>
+    <item time="0" type="Visible" target="n10_rnuu" value="false"/>
+    <item time="29" type="Text" target="n13_mfyg" label="changeState" value="{&quot;controller&quot;:&quot;fsm&quot;,&quot;state&quot;:&quot;None&quot;}"/>
+    <item time="29" type="Visible" value="false"/>
+  </transition>
+  <transition name="none" options="4" frameRate="30">
+    <item time="0" type="Animation" target="n1_hruo" value="0,s,Appear1,-"/>
+    <item time="0" type="Visible" value="false"/>
+  </transition>
+</component>

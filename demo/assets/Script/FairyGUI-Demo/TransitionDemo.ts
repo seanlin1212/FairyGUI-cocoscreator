@@ -1,3 +1,7 @@
+import Game from "../../resources/UI/Transition/Game";
+import TransitionBinder from "../../resources/UI/Transition/TransitionBinder";
+import { UIPackage, UIPackageInfo } from "../Common/UIPackage";
+
 const { ccclass, property } = cc._decorator;
 
 @ccclass
@@ -11,37 +15,68 @@ export default class TransitionDemo extends cc.Component {
     private _g4: fgui.GComponent;
     private _g5: fgui.GComponent;
     private _g6: fgui.GComponent;
+    private _g7: fgui.GComponent;
 
     private _startValue: number;
     private _endValue: number;
 
     onLoad() {
-        fgui.UIPackage.loadPackage("UI/Transition", this.onUILoaded.bind(this));
+        
+        let pkgInfos = [
+            new UIPackageInfo("UI/Basics"),
+            new UIPackageInfo("UI/Transition", TransitionBinder.bindAll)
+        ];
+
+        UIPackage.loadPackages(pkgInfos, this.onUILoaded.bind(this))
+
     }
 
     onUILoaded() {
-        this._view = fgui.UIPackage.createObject("Transition", "Main").asCom;
+        this._view = UIPackage.createObject("Transition", "Main").asCom;
         this._view.makeFullScreen();
+        this._view.addRelation(fgui.GRoot.inst, fgui.RelationType.Size);
         fgui.GRoot.inst.addChild(this._view);
 
         this._btnGroup = this._view.getChild("g0").asGroup;
 
-        this._g1 = fgui.UIPackage.createObject("Transition", "BOSS").asCom;
-        this._g2 = fgui.UIPackage.createObject("Transition", "BOSS_SKILL").asCom;
-        this._g3 = fgui.UIPackage.createObject("Transition", "TRAP").asCom;
-        this._g4 = fgui.UIPackage.createObject("Transition", "GoodHit").asCom;
-        this._g5 = fgui.UIPackage.createObject("Transition", "PowerUp").asCom;
-        this._g6 = fgui.UIPackage.createObject("Transition", "PathDemo").asCom;
+        this._g1 = UIPackage.createObject("Transition", "BOSS").asCom;
+        this._g2 = UIPackage.createObject("Transition", "BOSS_SKILL").asCom;
+        this._g3 = UIPackage.createObject("Transition", "TRAP").asCom;
+        this._g4 = UIPackage.createObject("Transition", "GoodHit").asCom;
+        this._g5 = UIPackage.createObject("Transition", "PowerUp").asCom;
+        this._g6 = UIPackage.createObject("Transition", "PathDemo").asCom;
+        this._g7 = UIPackage.createObject("Transition", "Game").asCom;
+
+        this._g7.makeFullScreen();
+        this._g7.addRelation(fgui.GRoot.inst, fgui.RelationType.Size);
+
+        let game = this._g7 as Game;
+        
+        // let winFreeGame = this._g7.getChild("WinFreeGame").asCom;
+        // let winFreeGameCtrl = winFreeGame.getController("_fsm");
+        // let gameCtrl = this._g7.getController("state");
+        let winFreeGame = game._winFreeGame;
+        
+        // 監聽STATUS_CHANGED事件
+        winFreeGame._fsm.on(fgui.Event.STATUS_CHANGED, (controller:fgui.Controller) => {
+            if(controller.selectedPage === "None"){
+                game._fsm.selectedPage = "Spin";
+            }
+        },this);
 
         //play_num_now是在编辑器里设定的名称，这里表示播放到'play_num_now'这个位置时才开始播放数字变化效果
         this._g5.getTransition("t0").setHook("play_num_now", this.__playNum.bind(this));
 
+        let self = this;
         this._view.getChild("btn0").onClick(function (): void { this.__play(this._g1); }, this);
         this._view.getChild("btn1").onClick(function (): void { this.__play(this._g2); }, this);
         this._view.getChild("btn2").onClick(function (): void { this.__play(this._g3); }, this);
         this._view.getChild("btn3").onClick(this.__play4, this);
         this._view.getChild("btn4").onClick(this.__play5, this);
         this._view.getChild("btn5").onClick(function (): void { this.__play(this._g6); }, this);
+        this._view.getChild("btn6").onClick(()=>{
+            fgui.GRoot.inst.addChild(self._g7);
+        }, this);
     }
 
     private __play(target: fgui.GComponent): void {

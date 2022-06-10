@@ -56,8 +56,25 @@
     <component id="sw6l1h" name="PathDemo.xml" path="/" exported="true"/>
     <image id="sw6l1i" name="glz.jpg" path="/"/>
     <image id="sw6l1j" name="r1.png" path="/"/>
+    <component id="jwwq1k" name="WinFree.xml" path="/" exported="true"/>
+    <misc id="hruo1o" name="WinFree.atlas" path="/spines/WinFree/" exported="true"/>
+    <image id="hruo1p" name="WinFree.png" path="/spines/WinFree/" exported="true"/>
+    <spine id="hruo1q" name="WinFree.skel" path="/spines/WinFree/" exported="true" width="1455" height="761" require="hruo1o,hruo1p" atlasNames="WinFree" anchor="562,440"/>
+    <component id="rnuu1s" name="BlockInput.xml" path="/" exported="true"/>
+    <component id="rnuu1t" name="Game.xml" path="/" exported="true"/>
+    <image id="rnuu1u" name="bg.png" path="/images/"/>
+    <component id="ohx61v" name="ComboBox1_item.xml" path="/"/>
+    <component id="ohx61w" name="ComboBox1_popup.xml" path="/"/>
+    <component id="ohx61x" name="ComboBox1.xml" path="/" exported="true"/>
+    <component id="w8r71y" name="Button2.xml" path="/"/>
+    <component id="w8r720" name="Button3.xml" path="/"/>
+    <image id="w8r721" name="buttom_ui.png" path="/images/"/>
+    <image id="w8r722" name="slot.png" path="/images/"/>
+    <component id="w8r723" name="ComboBox2_item.xml" path="/"/>
+    <component id="w8r724" name="ComboBox2_popup.xml" path="/"/>
+    <component id="w8r725" name="ComboBox2.xml" path="/" exported="true"/>
   </resources>
-  <publish name="Transition">
+  <publish name="Transition" genCode="true">
     <atlas name="Default" index="0"/>
   </publish>
 </packageDescription>

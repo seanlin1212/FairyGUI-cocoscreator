@@ -29,6 +29,7 @@ export default class MainMenu extends cc.Component {
 
         this._view = fgui.UIPackage.createObject("MainMenu", "Main").asCom;
         this._view.makeFullScreen();
+        this._view.addRelation(fgui.GRoot.inst, fgui.RelationType.Size);
         fgui.GRoot.inst.addChild(this._view);
 
         this._view.getChild("n1").onClick(function () {

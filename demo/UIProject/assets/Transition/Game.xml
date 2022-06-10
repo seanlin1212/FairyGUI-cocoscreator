@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1136,640">
+  <controller name="fsm" pages="0,Spin,1,WinFreeGame" selected="0">
+    <action type="change_page" fromPage="0" toPage="1" objectId="n1_rnuu" controller="fsm" targetPage="0"/>
+  </controller>
+  <displayList>
+    <loader id="n5_w8r7" name="n5" xy="0,0" size="1136,640" url="ui://c0hnre6ornuu1u" align="center" vAlign="middle" fill="scaleNoBorder">
+      <relation target="" sidePair="width-width,height-height"/>
+    </loader>
+    <image id="n2_rnuu" name="n2" src="rnuu1u" fileName="images/bg.png" xy="0,0" size="1136,639" visible="false">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </image>
+    <image id="n6_w8r7" name="n6" src="w8r722" fileName="images/slot.png" xy="92,2" size="950,524" aspect="true">
+      <relation target="" sidePair="center-center,middle-middle"/>
+    </image>
+    <image id="n7_w8r7" name="n7" src="w8r721" fileName="images/buttom_ui.png" xy="118,508" size="956,127" aspect="true">
+      <relation target="" sidePair="center-center,bottom-bottom"/>
+    </image>
+    <graph id="n4_mfyg" name="n4" xy="0,0" size="1136,640" type="rect" lineSize="0" fillColor="#b2000000">
+      <gearDisplay controller="fsm" pages="1"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </graph>
+    <component id="n1_rnuu" name="winFreeGame" src="jwwq1k" fileName="WinFree.xml" xy="568,320" size="1136,640" controller="fsm,2">
+      <gearDisplay controller="fsm" pages="1"/>
+      <relation target="" sidePair="width-width,height-height"/>
+    </component>
+    <component id="n8_w8r7" name="n8" src="w8r725" fileName="ComboBox2.xml" xy="43,30">
+      <relation target="" sidePair=""/>
+      <ComboBox visibleItemCount="10" selectionController="fsm">
+        <item title="Spin"/>
+        <item title="WinFreeGame"/>
+      </ComboBox>
+    </component>
+  </displayList>
+</component>

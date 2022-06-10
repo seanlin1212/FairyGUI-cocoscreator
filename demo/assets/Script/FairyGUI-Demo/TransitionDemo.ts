@@ -20,15 +20,18 @@ export default class TransitionDemo extends cc.Component {
     private _startValue: number;
     private _endValue: number;
 
-    onLoad() {
-        
-        let pkgInfos = [
-            new UIPackageInfo("UI/Basics"),
-            new UIPackageInfo("UI/Transition", TransitionBinder.bindAll)
-        ];
+    async onLoad() {
+        // let pkgInfos = [
+        //     new UIPackageInfo("UI/Basics"),
+        //     new UIPackageInfo("UI/Transition", TransitionBinder.bindAll)
+        // ];
 
-        UIPackage.loadPackages(pkgInfos, this.onUILoaded.bind(this))
+        // await UIPackage.loadPackages(pkgInfos);
 
+        await UIPackage.loadPackage("UI/Basics");
+        await UIPackage.loadPackage("UI/Transition", TransitionBinder.bindAll);
+
+        this.onUILoaded();
     }
 
     onUILoaded() {

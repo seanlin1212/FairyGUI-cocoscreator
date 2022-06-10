@@ -10,31 +10,6 @@ export class UIPackageInfo{
 }
 
 export class UIPackage {
-    static loadPackages(infos: UIPackageInfo[], onComplete?: (error: any) => void): void{
-        let res = [];
-
-        for(let info of infos){
-            // 描述文件
-            res.push(info.path);
-            // 纹理集
-            res.push(info.path+'_atlas0');
-        }
-
-        cc.resources.load(res, function(err, assets) {
-            // 都加载完毕后再调用addPackage
-            for(let info of infos){
-                UIPackage.addPackage(info.path, info.bindAll);
-            }
-            
-            if(onComplete){
-                onComplete(err);
-            }
-            
-        });
-
-        cc.resources.loadDir
-    }
-
     static addPackage(path: string, bindAll?: ()=>void): fgui.UIPackage{
         let pkg = fgui.UIPackage.addPackage(path);
 
@@ -45,9 +20,9 @@ export class UIPackage {
         return pkg;
     }
 
-    static loadPackage(bundle: cc.AssetManager.Bundle, path: string, bindAll?: ()=>void){
+    static loadPackage(path: string, bindAll?: ()=>void){
         return new Promise((resolve)=>{
-            fgui.UIPackage.loadPackage(bundle, path, (error: any, pkg: UIPackage) =>{
+            fgui.UIPackage.loadPackage(path, (error: any, pkg: UIPackage) =>{
                 if(pkg && bindAll){
                     bindAll();
                 }
@@ -55,6 +30,15 @@ export class UIPackage {
             });
             
         });
+    }
+
+    static loadPackages(infos: UIPackageInfo[]){
+        let promises = [];
+        for(let info of infos){
+            promises.push(UIPackage.loadPackage(info.path, info.bindAll));
+        }
+
+        return Promise.all(promises);
     }
 
     static createObject(pkgName: string, resName: string, userClass?: new () => fgui.GObject): fgui.GObject{
